@@ -11,21 +11,22 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 public class Fruit {
 
     private String name;
-    private String description;
+    private Season type;
 
     public Fruit() {
     }
 
-    public Fruit(String name, String description) {
+    public Fruit(String name, Season type) {
         this.name = name;
-        this.description = description;
+        this.type = type;
     }
 
     public static Fruit from(Map<String, AttributeValue> item) {
         Fruit fruit = new Fruit();
         if (item != null && !item.isEmpty()) {
             fruit.setName(item.get(AbstractService.FRUIT_NAME_COL).s());
-//            fruit.setDescription(item.get(AbstractService.FRUIT_DESC_COL).s());
+            var season = Season.valueOf(item.get(AbstractService.FRUIT_TYPE_COL).s());
+            fruit.setType(season);
         }
         return fruit;
     }
@@ -38,12 +39,12 @@ public class Fruit {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Season getType() {
+        return type;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setType(Season type) {
+        this.type = type;
     }
 
     @Override

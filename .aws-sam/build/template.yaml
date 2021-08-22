@@ -1,0 +1,9 @@
+Resources:
+  Function:
+    Type: AWS::Serverless::Function
+    Properties:
+      Timeout: 300
+      MemorySize: 512
+      Handler: com.thinksy.lambda.FruitDetectorLambda
+      CodeUri: Function
+      Runtime: java11

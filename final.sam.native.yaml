@@ -1,0 +1,22 @@
+  AWSTemplateFormatVersion: '2010-09-09'
+  Transform: AWS::Serverless-2016-10-31
+  Description: AWS Serverless Quarkus - quarkus-amazon-lambda-common-deployment
+  Globals:
+    Api:
+      BinaryMediaTypes:
+        - "*/*"
+
+  Resources:
+    AwsLambdaHandlerQaurkusNative:
+      Type: AWS::Serverless::Function
+      Properties:
+        Handler: not.used.in.provided.runtime
+        Runtime: provided.al2
+        Role: arn:aws:iam::765750088304:role/fruits_service_role
+        Timeout: 30
+        MemorySize: 128
+        CodeUri: function.zip
+        Policies: AWSLambdaBasicExecutionRole
+        Environment:
+          Variables:
+            DISABLE_SIGNAL_HANDLERS: true
