@@ -8,7 +8,7 @@
     - [Deploy the demo application to AWS Lambda](###Deploy-the-demo-application-to-AWS-Lambda)
     - [Watching performance of the demo application on AWS Lambda + JVM platform](###Watching-of-the-demo-application-on-AWS-Lambda-+-JVM-platform)
 - [What solution do we have for the AWS Lambda cold-start?](##What-solution-do-we-have-for-the-AWS-Lambda-cold-start?)
-- [What is GraalVM?](####What-is-GraalVM?)
+- [What is GraalVM?](##What-is-GraalVM?)
 - [Build a native binary executable from the Java application](##Build-a-native-binary-executable-from-the-Java-application)
     - [AWS Lambda Environment](###AWS-Lambda-Environment)
     - [Deploy built binary executable on AWS Lambda](###Deploy-built-binary-executable-on-AWS-Lambda)
