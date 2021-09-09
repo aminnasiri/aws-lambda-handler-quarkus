@@ -318,7 +318,7 @@ _fruitAppJVM_ is the name of Lambda I gave to SAM CLI in the deployment process.
 
 Then we can refer to the AWS web console to see the results of invoking the function.
 
-![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/tree/main/images/fruit-app-jvm-performace.png)
+![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/blob/main/images/fruit-app-jvm-performace.png)
 
 Numbers are talking, and this is a horrible performance for a simple application due to AWS Lambda’s cold-start feature.
 
@@ -442,7 +442,7 @@ $ aws lambda list-functions --query 'Functions[?starts_with(FunctionName, `fruit
 _fruitAppNative_ is the name of Lambda I gave to SAM CLI in the deployment process.
 
 Then we can open the AWS web console to see the results of invoking the function.
-![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/tree/main/images/fruit-app-native-binary-performace.png)
+![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/blob/main/images/fruit-app-native-binary-performace.png)
 
 Wow, such a fantastic result is showing up.
 
@@ -454,7 +454,7 @@ We can analyze and compare both versions of the application on the AWS Lambda pl
   The time consumed by the first call or invoke the Lambda function is called **initialize time**.
   It is almost the longest duration of invoking an application on Lambda because our Java application will start from scratch in this phase.
 
-  ![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/tree/main/images/initialize-time.png)
+  ![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/blob/main/images/initialize-time.png)
 
 + There is a considerable difference between JVM and the Binary version, which means the initialized time of the native binary version is almost **_eight times_** faster than the JVM version.
 
@@ -462,7 +462,7 @@ We can analyze and compare both versions of the application on the AWS Lambda pl
 + **Request time:**
   I invoked the Lambda function nine times after initialized step, and here is the performance result.
 
-  ![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/tree/main/images/invoke-times.png)
+  ![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/blob/main/images/invoke-times.png)
 
   Based on the result, there is a significant difference in the performance between the JVM version and the Native binary.
 
