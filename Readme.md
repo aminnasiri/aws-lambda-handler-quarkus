@@ -2,24 +2,24 @@
 
 - [Abstract](##Abstract)
 - [The demo application](##The-demo-application)
-    - [The demo application workflow](###The-demo-application-workflow)
-    - [Creating a Quarkus based Java application](###Creating-a-Quarkus-based-Java-application)
-    - [The benefits of using Quarkus to develop a Java Application on AWS Lambda](###The-benefits-of-using-Quarkus-to-develop-a-Java-Application-on-AWS-Lambda)
-    - [Deploying the demo application on AWS Lambda](###Deploying-the-demo-application-on-AWS-Lambda)
-    - [Watching the performance of the demo application on AWS Lambda + JVM platform](###Watching-the-performance-of-the-demo-application-on-AWS-Lambda-+-JVM-platform)
+  - [The demo application workflow](###The-demo-application-workflow)
+  - [Creating a Quarkus based Java application](###Creating-a-Quarkus-based-Java-application)
+  - [The benefits of using Quarkus to develop a Java Application on AWS Lambda](###The-benefits-of-using-Quarkus-to-develop-a-Java-Application-on-AWS-Lambda)
+  - [Deploying the demo application on AWS Lambda](###Deploying-the-demo-application-on-AWS-Lambda)
+  - [Watching the performance of the demo application on AWS Lambda + JVM platform](###Watching-the-performance-of-the-demo-application-on-AWS-Lambda-+-JVM-platform)
 - [The available solutions for the AWS Lambda cold-start challenge](##The-available-solutions-for-the-AWS-Lambda-cold-start-challenge)
 - [What is GraalVM?](##What-is-GraalVM?)
 - [Building a native binary executable from the Java application](##Building-a-native-binary-executable-from-the-Java-application)
-    - [AWS Lambda Environment](###AWS-Lambda-Environment)
-    - [Deploying the binary executable on AWS Lambda](###Deploying-the-binary-executable-on-AWS-Lambda)
-    - [Watching the performance of the demo application on AWS Lambda + Custom platform](###Watching-the-performance-of-the-demo-application-on-AWS-Lambda-+-Custom-platform)
+  - [AWS Lambda Environment](###AWS-Lambda-Environment)
+  - [Deploying the binary executable on AWS Lambda](###Deploying-the-binary-executable-on-AWS-Lambda)
+  - [Watching the performance of the demo application on AWS Lambda + Custom platform](###Watching-the-performance-of-the-demo-application-on-AWS-Lambda-+-Custom-platform)
 - [Analyzing the performance of JVM vs Native Binary on AWS Lambda](##Analyzing-the-performance-of-JVM-vs-Native-Binary-on-AWS-Lambda)
 - [Conclusion](##Conclusion)
 - [References](##References)
 
 ## Abstract
 
-The AWS Lambda is a popular platform for serverless development, and as a Java developer, 
+The AWS Lambda is a popular platform for serverless development, and as a Java developer,
 I like to be able to use this platform, but there are some essential points that need to be addressed first.
 
 1) The cost of serverless functions on AWS Lambda would be expensive with the JVM.
@@ -49,23 +49,23 @@ The type of fruit will be.
 + **Fall** Season Fruit
 + **Winter** Season Fruit
 
-<br/>
 
-![](images/handler-diagram.png)
 
-<br/>
+![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/blob/main/images/handler-diagram.png)
+
+
 
 ### The demo application workflow
 
 This demo is a simple Java application that fetches the requested Fruit information, extracts the type of fruit, and returns the correct type of fruit. How simple is that?!
 
 
-![](images/sequence-diagram.png)
+![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/blob/main/images/sequence-diagram.png)
 
 
 ### Creating a Quarkus based Java application
 
-Quarkus offers a clear [guideline](https://quarkus.io/guides/amazon-lambda) which expands on the AWS Lambda project. 
+Quarkus offers a clear [guideline](https://quarkus.io/guides/amazon-lambda) which expands on the AWS Lambda project.
 This project template can be easily accessed by using a Maven command.
 
 ```shell
@@ -74,9 +74,9 @@ mvn archetype:generate \
        -DarchetypeArtifactId=aws-lambda-handler-qaurkus \
        -DarchetypeVersion=2.1.3.Final 
 ```
-The command will generate an application using AWS Java SDK. 
+The command will generate an application using AWS Java SDK.
 
-The Quarkus framework has extensions for DynamoDB, S3, SNS, SQS, etc., and I prefer using AWS Java SDK V2 which offers non-blocking features. 
+The Quarkus framework has extensions for DynamoDB, S3, SNS, SQS, etc., and I prefer using AWS Java SDK V2 which offers non-blocking features.
 So, the project pom.xml file needs to be modified by [this guideline](https://quarkus.io/guides/amazon-lambda#aws-sdk-v2).
 
 The project has Lambda, a dependency inside of the pom file.
@@ -152,7 +152,7 @@ public class FruitService extends AbstractService {
 ```
 
 `DynamoDbClient` is a class from AWS Java SDK.v2 which Quarkus will build and make available in its Dependency Injection ecosystem.
-The [FruitService](src/main/java/com/thinksy/service/FruitService.java) is inherited from an abstract class called [AbstractService](src/main/java/com/thinksy/service/AbstractService.java),
+The [FruitService](https://github.com/aminnasiri/aws-lambda-handler-quarkus/tree/main/src/main/java/com/thinksy/service/FruitService.java) is inherited from an abstract class called [AbstractService](https://github.com/aminnasiri/aws-lambda-handler-quarkus/tree/main/src/main/java/com/thinksy/service/AbstractService.java),
 and this abstract class will provide basic objects of `DynamoDbClient` needs, e.g. `ScanRequest`, `PutItemRequest`, etc.
 
 Reflection is popular in Java frameworks, but it will be a new challenge on GraalVM native-image. (more information [reflection in Graalvm](https://www.graalvm.org/reference-manual/native-image/Reflection/))
@@ -181,7 +181,7 @@ It is also worth mentioning that Quarkus offers many other benefits while using 
 ### Deploying the demo application on AWS Lambda
 
 It is deployment time on AWS, and the process will be relatively simple using Maven and Quarkus framework.
-However, more preparation on AWS is required prior to deployment and running the application. 
+However, more preparation on AWS is required prior to deployment and running the application.
 The deployment process consists of the following steps:
 
 
@@ -276,7 +276,7 @@ Finally, The AWS platform is ready to host our application now.
 $  mvn clean install
 ```
 
-The Quarkus framework will take care of creating a JAR artifact file, zip this JAR file, and prepare the [SAM template](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification.html) of AWS. 
+The Quarkus framework will take care of creating a JAR artifact file, zip this JAR file, and prepare the [SAM template](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification.html) of AWS.
 The JVM version should be used this time, and here is how it can be modified:
 
 **1)** Add a defined role to Lambda to have proper access
@@ -297,7 +297,7 @@ So SAM template is ready to deploy on AWS Lambda now.
 $  sam deploy -t target/sam.jvm.yaml -g
 ```
 
-This command will upload the jar file as a zip format to AWS and deploy it as Lambda Function. 
+This command will upload the jar file as a zip format to AWS and deploy it as Lambda Function.
 The next step will be to test the application by invoking a request
 
 ### Watching the performance of the demo application on AWS Lambda + JVM platform
@@ -313,24 +313,24 @@ We can figure out the **FUNCTION_NAME** by using the following command.
 ```shell
 $ aws lambda list-functions --query 'Functions[?starts_with(FunctionName, `fruitAppJVM`) == `true`].FunctionName'
 ```
- 
+
 _fruitAppJVM_ is the name of Lambda I gave to SAM CLI in the deployment process.
 
 Then we can refer to the AWS web console to see the results of invoking the function.
 
-![](images/fruit-app-jvm-performace.png)
+![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/tree/main/images/fruit-app-jvm-performace.png)
 
 Numbers are talking, and this is a horrible performance for a simple application due to AWS Lambda’s cold-start feature.
 
 #### What is an AWS Lambda cold start?
 
 When running a Lambda function, it stays active as long as it’s being actively used, which means that your container stays alive and ready for execution.
-However, AWS will drop the container after a period of inactivity (usually very short), and your function becomes inactive or cold. 
-A cold start occurs when a request comes to the idle lambda function. Afterwards, the Lambda function will be initialized to be able to respond to the request. (initialize mode of Java framework).  
+However, AWS will drop the container after a period of inactivity (usually very short), and your function becomes inactive or cold.
+A cold start occurs when a request comes to the idle lambda function. Afterwards, the Lambda function will be initialized to be able to respond to the request. (initialize mode of Java framework).
 
 On the other hand, a warm start happens when there are available lambda containers. For more information, follow [this link](https://aws.amazon.com/blogs/compute/operating-lambda-performance-optimization-part-1/)
 
-<br/>
+
 The cold start is the main reason we have this horrible performance as each time the cold start occurs, AWS will initialize our Java application, and obviously, it will take a long time for each request.
 
 ## The available solutions for the AWS Lambda cold-start challenge
@@ -353,7 +353,7 @@ management, thread scheduling, and so on from a different runtime system, called
 ## Building a native binary executable from the Java application
 
 First, we need to install GraalVM and its Native-Image using [this guideline](https://thinksky.com/blog/2021/07/20/install-graalvm-native-image/).
-Then, by installing GraalVM, we can convert a Java application to a native binary executable with GraalVM. 
+Then, by installing GraalVM, we can convert a Java application to a native binary executable with GraalVM.
 Quarkus makes it easy, and it has a Maven/Gradle plugin, so in a typical Quarkus based application, we will have a profile called `native`.
 
 
@@ -391,7 +391,7 @@ So we previously deployed the Java Application on Lambda by java11 (Corretto 11)
 
 We currently have two options for the pure Linux platform on Lambda, which are `provided` and `provided.al2`.
 
-It is worth mentioning that `provided` will use Amazon Linux, and `provided.al2` will use [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/faqs/), 
+It is worth mentioning that `provided` will use Amazon Linux, and `provided.al2` will use [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/faqs/),
 so, because of long-term support of version 2, using Version 2 is highly recommended.
 
 ### Deploying the binary executable on AWS Lambda
@@ -416,7 +416,7 @@ As we saw, Quarkus will produce two sam templates for us; one is for the JVM bas
   Timeout: 30
 ```
 
-The final version of the native SAM template will be like this [file](final.sam.native.yaml); it is now ready to be deployed on AWS.
+The final version of the native SAM template will be like this [final.sam.native.yaml](https://github.com/aminnasiri/aws-lambda-handler-quarkus/blob/main/final.sam.native.yaml); it is now ready to be deployed on AWS.
 
 ```
 $ sam deploy -t target/sam.native.yaml -g
@@ -442,7 +442,7 @@ $ aws lambda list-functions --query 'Functions[?starts_with(FunctionName, `fruit
 _fruitAppNative_ is the name of Lambda I gave to SAM CLI in the deployment process.
 
 Then we can open the AWS web console to see the results of invoking the function.
-![](images/fruit-app-native-binary-performace.png)
+![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/tree/main/images/fruit-app-native-binary-performace.png)
 
 Wow, such a fantastic result is showing up.
 
@@ -454,21 +454,19 @@ We can analyze and compare both versions of the application on the AWS Lambda pl
   The time consumed by the first call or invoke the Lambda function is called **initialize time**.
   It is almost the longest duration of invoking an application on Lambda because our Java application will start from scratch in this phase.
 
-  ![](images/initialize-time.png)
+  ![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/tree/main/images/initialize-time.png)
 
 + There is a considerable difference between JVM and the Binary version, which means the initialized time of the native binary version is almost **_eight times_** faster than the JVM version.
 
-<br/>
 
 + **Request time:**
   I invoked the Lambda function nine times after initialized step, and here is the performance result.
 
-  ![](images/invoke-times.png)
+  ![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/tree/main/images/invoke-times.png)
 
   Based on the result, there is a significant difference in the performance between the JVM version and the Native binary.
 
 
-<br/>
 
 ## Conclusion
 
