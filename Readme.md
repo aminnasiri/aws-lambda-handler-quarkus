@@ -368,8 +368,6 @@ $  mvn clean install -Pnative \
         -Dquarkus.native.container-build=true
 ```
 
-As shown on the above command, using `-Dquarkus.native.builder-image` can specify the version of GraalVm we want to use.
-
 ### AWS Lambda Environment
 
 AWS Lambda has a couple of different deployable environments.
