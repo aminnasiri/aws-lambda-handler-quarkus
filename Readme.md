@@ -49,8 +49,6 @@ The type of fruit will be.
 + **Fall** Season Fruit
 + **Winter** Season Fruit
 
-
-
 ![](https://github.com/aminnasiri/aws-lambda-handler-quarkus/blob/main/images/handler-diagram.png)
 
 
@@ -367,8 +365,7 @@ In this case, the Quarkus framework will cover this requirement by a simple para
 
 ```shell
 $  mvn clean install -Pnative \
-        -Dquarkus.native.container-build=true \
-        -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-native-image:21.2-java11
+        -Dquarkus.native.container-build=true
 ```
 
 As shown on the above command, using `-Dquarkus.native.builder-image` can specify the version of GraalVm we want to use.
